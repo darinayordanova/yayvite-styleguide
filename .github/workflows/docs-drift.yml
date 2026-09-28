@@ -8,7 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  
+
 jobs:
   docs-drift:
     # story-sync is private and is cloned with a repo secret, which GitHub
@@ -30,10 +30,11 @@ jobs:
           token: ${{ secrets.STORY_SYNC_TOKEN }}
           path: .story-sync
           persist-credentials: false
-          auto-fix: true
 
       - uses: ./.story-sync
         with:
           path: src
           # Fail on drift anywhere, including components the PR didn't touch.
           fail-on: any
+          # Opens a fix PR for drift in the components this PR changed.
+          auto-fix: true
