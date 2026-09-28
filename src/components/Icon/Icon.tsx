@@ -16,6 +16,7 @@ export const Icon = forwardRef<HTMLElement, IconProps>(function Icon(
   { name, size, label, className, ...rest },
   ref,
 ) {
+  
   return (
     <i
       ref={ref}

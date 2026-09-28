@@ -15,6 +15,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(functio
   { icon, size = 'md', type = 'button', className, ...rest },
   ref,
 ) {
+  
   return (
     <button
       ref={ref}
