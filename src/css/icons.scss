@@ -1,0 +1,46 @@
+// Icon font. Usage: <i class="icon icon-heart" aria-hidden="true"></i>
+// Icons inherit `color` and size with `font-size` (default 20px, the design size).
+@use '../icons/generated/glyphs' as g;
+
+@font-face {
+  font-family: 'yv-icons';
+  src: url('../fonts/yv-icons.woff2') format('woff2');
+  font-display: block;
+}
+
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  font-family: 'yv-icons' !important;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  vertical-align: middle;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-16 {
+  font-size: 16px;
+}
+.icon-20 {
+  font-size: 20px;
+}
+.icon-24 {
+  font-size: 24px;
+}
+.icon-32 {
+  font-size: 32px;
+}
+
+@each $name, $codepoint in g.$glyphs {
+  .icon-#{$name}::before {
+    content: $codepoint;
+  }
+}

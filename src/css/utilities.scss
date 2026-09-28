@@ -1,0 +1,80 @@
+// Utility classes for colors, spacing and typography.
+// Values come from tokens.css custom properties, so load that first.
+@use 'sass:list';
+@use '../styles/tokens' as t;
+
+// Colors
+@each $name, $_ in t.$color-palette {
+  .text-#{$name} {
+    color: var(--color-#{$name});
+  }
+  .bg-#{$name} {
+    background-color: var(--color-#{$name});
+  }
+  .border-#{$name} {
+    border-color: var(--color-#{$name});
+  }
+}
+
+// Spacing (4px scale)
+$space-properties: (
+  'm': margin,
+  'mt': margin-top,
+  'mr': margin-right,
+  'mb': margin-bottom,
+  'ml': margin-left,
+  'mx': margin-inline,
+  'my': margin-block,
+  'p': padding,
+  'pt': padding-top,
+  'pr': padding-right,
+  'pb': padding-bottom,
+  'pl': padding-left,
+  'px': padding-inline,
+  'py': padding-block,
+  'gap': gap,
+  'gap-x': column-gap,
+  'gap-y': row-gap,
+);
+
+@each $abbr, $property in $space-properties {
+  @each $step, $_ in t.$space-scale {
+    .#{$abbr}-#{$step} {
+      #{$property}: var(--space-#{$step});
+    }
+  }
+}
+
+.m-auto {
+  margin: auto;
+}
+.mx-auto {
+  margin-inline: auto;
+}
+
+// Typography
+.font-serif {
+  font-family: var(--font-serif);
+}
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+@each $name, $_ in t.$type-weights {
+  .font-#{$name} {
+    font-weight: var(--font-weight-#{$name});
+  }
+}
+
+@each $name, $style in t.$type-styles {
+  .text-#{$name} {
+    font-family: var(--font-#{list.nth($style, 1)});
+    font-size: var(--text-#{$name}-size);
+    line-height: var(--text-#{$name}-line-height);
+    font-weight: list.nth($style, 4);
+    letter-spacing: list.nth($style, 5);
+    @if $name == 'label' {
+      text-transform: uppercase;
+    }
+  }
+}

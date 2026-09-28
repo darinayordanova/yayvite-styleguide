@@ -1,0 +1,59 @@
+@use '../../styles/functions' as *;
+@use '../../styles/tokens' as t;
+
+.toggle {
+  display: flex;
+  justify-content: space-between;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    font-size: rem(11px);
+    font-weight: var(--font-weight-bold);
+    line-height: rem(16.5px);
+  }
+
+  &__description {
+    padding-top: 3px;
+    color: var(--color-neutral-500);
+    font-size: rem(9px);
+    line-height: rem(13.5px);
+  }
+
+  .choice__control {
+    display: inline-flex;
+    width: 39px;
+    height: 22px;
+    padding: 3px;
+    border: 0;
+    border-radius: var(--radius-full);
+    background-color: var(--color-neutral-300);
+
+    &::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: var(--color-white);
+      box-shadow: t.$shadow-thumb;
+      transition: transform t.$duration ease;
+    }
+  }
+
+  .choice__input:checked + .choice__control {
+    background-color: var(--color-evergreen-700);
+
+    &::before {
+      transform: translateX(17px);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle .choice__control::before {
+    transition: none;
+  }
+}

@@ -1,0 +1,26 @@
+@use '../../icons/generated/glyphs' as g;
+@use 'sass:map';
+
+.checkbox {
+  .choice__control {
+    border-radius: var(--radius-sm);
+  }
+
+  .choice__input:checked + .choice__control {
+    border-color: var(--color-evergreen-700);
+    background-color: var(--color-evergreen-700);
+    color: var(--color-white);
+
+    // Check glyph from the icon font (requires icons.css).
+    &::before {
+      content: map.get(g.$glyphs, 'check');
+      font-family: 'yv-icons';
+      font-size: 13px;
+      line-height: 1;
+    }
+  }
+
+  .choice__input:disabled:not(:checked) + .choice__control {
+    border-color: var(--color-neutral-300);
+  }
+}

@@ -1,0 +1,23 @@
+.radio {
+  .choice__control {
+    border-radius: 50%;
+
+    &::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--color-evergreen-700);
+      transform: scale(0);
+      transition: transform 150ms ease;
+    }
+  }
+
+  .choice__input:checked + .choice__control::before {
+    transform: scale(1);
+  }
+
+  .choice__input:disabled:not(:checked) + .choice__control {
+    border-color: var(--color-neutral-300);
+  }
+}

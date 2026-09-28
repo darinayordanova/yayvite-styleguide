@@ -1,0 +1,52 @@
+@use '../../styles/tokens' as t;
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  background-color: var(--color-white);
+  color: var(--color-evergreen-700);
+  cursor: pointer;
+  transition:
+    background-color t.$duration ease,
+    border-color t.$duration ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-evergreen-300);
+    background-color: var(--color-evergreen-100);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-evergreen-500);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: t.$opacity-disabled;
+    cursor: not-allowed;
+  }
+
+  &--lg {
+    width: 48px;
+    height: 48px;
+  }
+
+  &--md {
+    width: 40px;
+    height: 40px;
+  }
+
+  &--sm {
+    width: 32px;
+    height: 32px;
+
+    .icon {
+      font-size: 17px;
+    }
+  }
+}

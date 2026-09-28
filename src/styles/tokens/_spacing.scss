@@ -1,0 +1,11 @@
+@use 'sass:map';
+
+// 4px spacing scale. Key = step, value = step × 4px.
+$base: 4px;
+
+$steps: (0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24);
+
+$scale: ();
+@each $step in $steps {
+  $scale: map.set($scale, $step, $step * $base);
+}

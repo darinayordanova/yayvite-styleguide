@@ -1,0 +1,32 @@
+// Design tokens as CSS custom properties. Every other stylesheet reads these,
+// so a consuming app can re-theme by overriding them.
+@use 'sass:list';
+@use '../styles/functions' as *;
+@use '../styles/tokens' as t;
+
+:root {
+  @each $name, $value in t.$color-palette {
+    --color-#{$name}: #{$value};
+  }
+
+  @each $step, $value in t.$space-scale {
+    --space-#{$step}: #{rem($value)};
+  }
+
+  --font-serif: #{t.$type-font-serif};
+  --font-sans: #{t.$type-font-sans};
+
+  @each $name, $value in t.$type-weights {
+    --font-weight-#{$name}: #{$value};
+  }
+
+  @each $name, $style in t.$type-styles {
+    --text-#{$name}-size: #{rem(list.nth($style, 2))};
+    --text-#{$name}-line-height: #{rem(list.nth($style, 3))};
+  }
+
+  --radius-sm: #{t.$radius-sm};
+  --radius-md: #{t.$radius-md};
+  --radius-lg: #{t.$radius-lg};
+  --radius-full: #{t.$radius-full};
+}

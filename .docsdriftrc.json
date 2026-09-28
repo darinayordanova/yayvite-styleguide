@@ -1,0 +1,4 @@
+ {
+    "root": "src/components",
+    "stories": ["{dir}/{name}.stories.tsx"]
+  }

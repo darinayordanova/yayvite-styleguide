@@ -1,0 +1,13 @@
+diff --git a/node_modules/fantasticon/dist/chunk-I73JJ2KG.js b/node_modules/fantasticon/dist/chunk-I73JJ2KG.js
+index 3c7ba01..dda19b3 100644
+--- a/node_modules/fantasticon/dist/chunk-I73JJ2KG.js
++++ b/node_modules/fantasticon/dist/chunk-I73JJ2KG.js
+@@ -177,7 +177,7 @@ import { resolve as resolve3, relative, join as join2 } from "path";
+ var ASSETS_EXTENSION = "svg";
+ var loadPaths = async (dir) => {
+   const globPath = join2(dir, `**/*.${ASSETS_EXTENSION}`);
+-  const files = await glob(globPath, {});
++  const files = await glob(globPath, { windowsPathsNoEscape: true });
+   if (!files.length) {
+     throw new Error(`No SVGs found in ${dir}`);
+   }

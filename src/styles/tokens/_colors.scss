@@ -1,0 +1,28 @@
+// Color tokens, extracted from the Figma "Colors" frame.
+// Keys become CSS custom properties (color-<key>) and utility classes.
+$palette: (
+  'evergreen-900': #29473b,
+  'evergreen-700': #3e5e50,
+  'evergreen-500': #799486,
+  'evergreen-300': #b8c8be,
+  'evergreen-100': #e8eee9,
+  'rose-900': #633e3a,
+  'rose-700': #96635d,
+  'rose-500': #c8958d,
+  'rose-300': #e6c4be,
+  'rose-100': #f5e9e6,
+  'neutral-900': #29302d,
+  'neutral-700': #626b67,
+  'neutral-500': #999f9c,
+  'neutral-300': #d9dcd9,
+  'neutral-100': #f4f4f0,
+  'white': #ffffff,
+  'success': #417458,
+  'success-light': #e7f1ea,
+  'warning': #a56a30,
+  'warning-light': #f8eddf,
+  'error': #a54d4d,
+  'error-light': #f7e7e5,
+  'info': #456b78,
+  'info-light': #e6eff1,
+);

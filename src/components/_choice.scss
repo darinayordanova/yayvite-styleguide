@@ -1,0 +1,52 @@
+// Shared styles for Checkbox, Radio and Toggle. The native input stays in the
+// DOM (visually hidden) so forms, keyboard and screen readers work as usual.
+@use '../styles/functions' as *;
+@use '../styles/tokens' as t;
+
+$disabled-opacity: 0.45;
+
+.choice {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-neutral-900);
+  font-family: var(--font-sans);
+  font-size: rem(12px);
+  line-height: rem(18px);
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  &__control {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    box-sizing: border-box;
+    width: 19px;
+    height: 19px;
+    border: 1px solid var(--color-evergreen-300);
+    background-color: var(--color-white);
+    transition:
+      background-color t.$duration ease,
+      border-color t.$duration ease;
+  }
+
+  &__input:focus-visible + &__control {
+    outline: 2px solid var(--color-evergreen-500);
+    outline-offset: 2px;
+  }
+
+  &:has(&__input:disabled) {
+    opacity: $disabled-opacity;
+    cursor: not-allowed;
+  }
+}

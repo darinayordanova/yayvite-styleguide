@@ -1,0 +1,112 @@
+@use '../../styles/functions' as *;
+@use '../../styles/tokens' as t;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-family: var(--font-sans);
+
+  &__label {
+    color: var(--color-neutral-900);
+    font-size: rem(12px);
+    font-weight: var(--font-weight-medium);
+    line-height: rem(18px);
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    box-sizing: border-box;
+    height: 43px;
+    padding-inline: 13px;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: var(--radius-md);
+    background-color: var(--color-white);
+    color: var(--color-neutral-500);
+    transition:
+      border-color t.$duration ease,
+      box-shadow t.$duration ease;
+
+    .icon {
+      font-size: 17px;
+    }
+
+    &:focus-within {
+      border-color: var(--color-evergreen-500);
+      box-shadow: 0 0 0 3px var(--color-evergreen-100);
+      color: var(--color-evergreen-700);
+    }
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--color-neutral-900);
+    font: inherit;
+    font-size: rem(12px);
+    line-height: rem(18px);
+
+    &::placeholder {
+      color: var(--color-neutral-500);
+      opacity: 1;
+    }
+  }
+
+  &__reveal {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-neutral-500);
+    cursor: pointer;
+
+    &:focus-visible {
+      border-radius: 2px;
+      outline: 2px solid var(--color-evergreen-500);
+      outline-offset: 2px;
+    }
+
+    &[aria-pressed='true'] {
+      color: var(--color-evergreen-700);
+    }
+  }
+
+  &__message {
+    margin: 0;
+    color: var(--color-neutral-500);
+    font-size: rem(10px);
+    line-height: rem(15px);
+  }
+
+  &--error {
+    .field__control,
+    .field__control:focus-within {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 3px var(--color-rose-100);
+      color: var(--color-error);
+    }
+
+    .field__message {
+      color: var(--color-error);
+    }
+  }
+
+  &--disabled {
+    .field__control {
+      background-color: var(--color-neutral-100);
+    }
+
+    .field__input {
+      cursor: not-allowed;
+    }
+  }
+}
