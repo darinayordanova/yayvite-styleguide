@@ -1,5 +1,6 @@
 {
   "root": "src",
   "stories": ["{dir}/{name}.stories.tsx"],
-  "failOn": "any"
+  "failOn": "any",
+  "verify": ["npm run build-storybook"]
 }
