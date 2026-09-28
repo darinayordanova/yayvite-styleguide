@@ -1,4 +1,5 @@
- {
-    "root": "src/components",
-    "stories": ["{dir}/{name}.stories.tsx"]
-  }
+{
+  "root": "src",
+  "stories": ["{dir}/{name}.stories.tsx"],
+  "failOn": "any"
+}
