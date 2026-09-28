@@ -11,6 +11,9 @@ permissions:
 
 jobs:
   docs-drift:
+    # story-sync is private and is cloned with a repo secret, which GitHub
+    # doesn't expose to pull requests from forks, so skip those.
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,7 +21,17 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
-      - uses: darinayordanova/story-sync@main
+
+      - name: Check out story-sync (private)
+        uses: actions/checkout@v4
+        with:
+          repository: darinayordanova/story-sync
+          ref: main
+          token: ${{ secrets.STORY_SYNC_TOKEN }}
+          path: .story-sync
+          persist-credentials: false
+
+      - uses: ./.story-sync
         with:
           path: src
           # Fail on drift anywhere, including components the PR didn't touch.
