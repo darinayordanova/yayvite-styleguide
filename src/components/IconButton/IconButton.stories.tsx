@@ -6,7 +6,7 @@ const meta = {
   title: 'Components/IconButton',
   component: IconButton,
   args: { icon: 'heart', 'aria-label': 'Like', size: 'md' },
-  argTypes: { icon: { control: 'select', options: iconNames } },
+  argTypes: { icon: { control: 'select', options: iconNames }, "aria-label": { control: "text" }, size: { control: "select", options: ["sm", "md", "lg"] } },
 } satisfies Meta<typeof IconButton>;
 
 export default meta;

@@ -1,23 +1,40 @@
 name: docs-drift
-  on:
-    pull_request:
-      paths:
-        - "src/**"
-        - ".storybook/**"
 
-  permissions:
-    contents: read
-    pull-requests: write
+# Runs on every pull request and checks the whole of src/, not just the
+# components the PR changed.
+on:
+  pull_request:
 
-  jobs:
-    docs-drift:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-        - uses: actions/setup-node@v4
-          with:
-            node-version: 20
-        - run: npm ci   # yarn? use: yarn install --frozen-lockfile · pnpm? use pnpm/action-setup + pnpm install
-        - uses: darinayordanova/story-sync@main
-          with:
-            path: src/components
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  docs-drift:
+    # story-sync is private and is cloned with a repo secret, which GitHub
+    # doesn't expose to pull requests from forks, so skip those.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+
+      - name: Check out story-sync (private)
+        uses: actions/checkout@v4
+        with:
+          repository: darinayordanova/story-sync
+          ref: main
+          token: ${{ secrets.STORY_SYNC_TOKEN }}
+          path: .story-sync
+          persist-credentials: false
+
+      - uses: ./.story-sync
+        with:
+          path: src
+          # Fail on drift anywhere, including components the PR didn't touch.
+          fail-on: any
+          # Opens a fix PR for drift in the components this PR changed.
+          auto-fix: true

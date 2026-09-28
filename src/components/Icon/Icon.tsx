@@ -5,6 +5,7 @@ import { cx } from '../../utils/cx';
 export type IconSize = 16 | 20 | 24 | 32;
 
 export interface IconProps extends HTMLAttributes<HTMLElement> {
+  /** Which icon to show from the icon font. */
   name: IconName;
   /** Pixel size. Omit to inherit the size set by the parent component. */
   size?: IconSize;
@@ -16,6 +17,7 @@ export const Icon = forwardRef<HTMLElement, IconProps>(function Icon(
   { name, size, label, className, ...rest },
   ref,
 ) {
+  
   return (
     <i
       ref={ref}
