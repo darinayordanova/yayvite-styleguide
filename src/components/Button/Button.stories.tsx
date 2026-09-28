@@ -9,6 +9,8 @@ const meta = {
   argTypes: {
     iconStart: { control: 'select', options: [undefined, ...iconNames] },
     iconEnd: { control: 'select', options: [undefined, ...iconNames] },
+    variant: { control: 'select', options: ['primary', 'secondary', 'tertiary', 'destructive'] },
+    size: { control: 'select', options: ['sm', 'md', 'lg'] },
   },
 } satisfies Meta<typeof Button>;
 

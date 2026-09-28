@@ -7,7 +7,7 @@ const meta = {
   title: 'Foundations/Icons',
   component: Icon,
   args: { name: 'heart', size: 24 },
-  argTypes: { name: { control: 'select', options: iconNames } },
+  argTypes: { name: { control: 'select', options: iconNames }, size: { control: 'select', options: [16, 20, 24, 32], description: 'Pixel size. Omit to inherit the size set by the parent component.' }, label: { control: 'text', description: 'Accessible name. Without it the icon is treated as decorative.' } },
 } satisfies Meta<typeof Icon>;
 
 export default meta;
