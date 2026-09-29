@@ -47,8 +47,10 @@ jobs:
         run: npm ci
 
       # prepublishOnly runs the full build (icons, fonts, JS, CSS) first.
+      # No --access flag: the package is already public, and trusted publishing
+      # isn't allowed to change package settings.
       - if: steps.check.outputs.publish == 'true'
-        run: npm publish --access public
+        run: npm publish
 
       - if: steps.check.outputs.publish == 'true'
         name: Create GitHub release
