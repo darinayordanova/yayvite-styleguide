@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use '../functions' as *;
+
+// Mobile-first breakpoints. Each prefix (sm, md, …) applies from its width up.
+$sizes: (
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+);
+
+// @include breakpoint-up(md) { … } — styles from the md breakpoint up.
+@mixin up($name) {
+  @media (min-width: rem(map.get($sizes, $name))) {
+    @content;
+  }
+}

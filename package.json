@@ -1,8 +1,12 @@
 {
   "name": "@yayvite/styleguide",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Yayvite design system & component library",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darinayordanova/yayvite-styleguide.git"
+  },
   "type": "module",
   "sideEffects": [
     "**/*.css"

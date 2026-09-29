@@ -26,7 +26,7 @@ Or import only the layers you use:
 | `tokens.css` | CSS custom properties (`*`). Needed by everything else. | ~0.6 KB |
 | `icons.css` | Icon font + `.icon-*` classes | ~0.5 KB + 5.7 KB font |
 | `components.css` | Styles for the React components (needs `icons.css`) | ~1.5 KB |
-| `utilities.css` | Color, spacing and typography classes | ~2 KB |
+| `utilities.css` | Layout, grid, flex, color, spacing and typography classes | ~11 KB |
 | `fonts.css` | Variable woff2 fonts, latin subset | ~0.3 KB + ~75 KB fonts |
 
 Skip `fonts.css` if your app already loads Playfair Display and DM Sans.
@@ -48,7 +48,16 @@ All values are CSS custom properties, so an app can re-theme by overriding them:
   `text-{style}-size`, `text-{style}-line-height`.
 - Radius: `radius-{sm|md|lg|full}`.
 
-The same tokens are published as SCSS maps under `@yayvite/styleguide/scss/tokens`.
+The same tokens are published as SCSS maps under `@yayvite/styleguide/scss/tokens`, along with the
+breakpoints (`sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px) and a mixin for them:
+
+```scss
+@use '@yayvite/styleguide/scss/tokens' as t;
+
+.hero {
+  @include t.breakpoint-up(md) { padding-block: 64px; }
+}
+```
 
 ### Utility classes
 
@@ -57,10 +66,38 @@ The same tokens are published as SCSS maps under `@yayvite/styleguide/scss/token
 <h1 class="text-display text-neutral-900">Your love, beautifully told</h1>
 ```
 
+```html
+<div class="container py-12">
+  <div class="grid grid-cols-1 md-grid-cols-3 gap-6">…</div>
+</div>
+```
+
+Layout and spacing classes are mobile-first and take a breakpoint prefix:
+`md-grid-cols-3` applies from 768px up. Prefixes: `sm-`, `md-`, `lg-`, `xl-`.
+
+- Container: `.container` (full width, side padding, max width = current breakpoint)
+- Grid: `.grid`, `.grid-cols-{1–12}`, `.col-span-{1–12|full}`, `.col-start-{1–13}`,
+  `.col-end-{1–13}`, `.grid-rows-{1–6}`, `.row-span-{1–6|full}`, `.grid-flow-{row|col|dense|row-dense}`
+- Flex: `.flex`, `.inline-flex`, `.flex-{row|col}[-reverse]`, `.flex-{wrap|nowrap}`,
+  `.flex-{1|auto|none}`, `.grow[-0]`, `.shrink[-0]`, `.order-{first|last}`
+- Alignment: `.items-*`, `.justify-*`, `.justify-items-*`, `.self-*`, `.place-items-center`,
+  `.place-content-center`
+- Display: `.block`, `.inline-block`, `.inline`, `.contents`, `.hidden`
+- Position: `.{static|relative|absolute|fixed|sticky}`, `.inset-0`, `.{top|right|bottom|left}-0`
+- Sizing: `.w-{full|auto|screen}`, `.h-{full|auto|screen}`, `.min-w-0`, `.min-h-screen`,
+  `.max-w-{xs|sm|md|lg|xl|2xl|3xl|4xl|prose|full|none}`
+- Overflow: `.overflow-{hidden|auto|visible}`, `.overflow-{x|y}-auto`
+- Text alignment: `.text-{left|center|right}`
+- Spacing: `.{m|mt|mr|mb|ml|mx|my|p|pt|pr|pb|pl|px|py|gap|gap-x|gap-y}-{step}`,
+  `.space-{x|y}-{step}` (space between children), `.{m|mx|my|mt|mr|mb|ml}-auto`
+
+Not responsive:
+
 - Color: `.text-{color}`, `.bg-{color}`, `.border-{color}`
-- Spacing: `.{m|mt|mr|mb|ml|mx|my|p|pt|pr|pb|pl|px|py|gap|gap-x|gap-y}-{step}`, `.m-auto`, `.mx-auto`
+- Borders: `.border`, `.border-0`, `.rounded-{none|sm|md|lg|full}`
 - Typography: `.text-{display|h1|h2|h3|body-lg|body|body-sm|label}`, `.font-{serif|sans}`,
-  `.font-{regular|medium|semibold|bold}`
+  `.font-{regular|medium|semibold|bold}`, `.truncate`, `.whitespace-nowrap`
+- Other: `.sr-only`, `.aspect-{square|video}`, `.object-{cover|contain}`, `.z-{0|10|20|30|40|50}`
 
 ## Icons
 

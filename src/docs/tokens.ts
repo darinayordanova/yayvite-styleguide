@@ -3,6 +3,7 @@
 import colorsScss from '../styles/tokens/_colors.scss?raw';
 import spacingScss from '../styles/tokens/_spacing.scss?raw';
 import typographyScss from '../styles/tokens/_typography.scss?raw';
+import breakpointsScss from '../styles/tokens/_breakpoints.scss?raw';
 
 export interface ColorToken {
   name: string;
@@ -45,3 +46,7 @@ export const typeStyles: TypeStyle[] = [
 export const fontWeights: string[] = [
   ...(/\$weights:\s*\(([^)]*)\)/.exec(typographyScss)?.[1] ?? '').matchAll(/'([\w-]+)'/g),
 ].map(([, name]) => name);
+
+export const breakpoints: Array<{ name: string; px: number }> = [
+  ...breakpointsScss.matchAll(/'([\w-]+)':\s*(\d+)px/g),
+].map(([, name, px]) => ({ name, px: Number(px) }));

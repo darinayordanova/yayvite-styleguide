@@ -1,0 +1,57 @@
+name: publish
+
+# Publishes to npm when a merge to main changes the version in package.json.
+# Merges that keep the same version are skipped, so bump "version" in the PR
+# to release it.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Never run two publishes at once.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+permissions:
+  contents: write # create the GitHub release + tag
+  id-token: write # npm trusted publishing (no NPM_TOKEN needed)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Trusted publishing needs npm 11.5.1+, which ships with Node 24.
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Check if this version is already on npm
+        id: check
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if npm view "$NAME@$VERSION" version 2>/dev/null | grep -q .; then
+            echo "$NAME@$VERSION is already published, skipping."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Publishing $NAME@$VERSION."
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.check.outputs.publish == 'true'
+        run: npm ci
+
+      # prepublishOnly runs the full build (icons, fonts, JS, CSS) first.
+      - if: steps.check.outputs.publish == 'true'
+        run: npm publish --access public
+
+      - if: steps.check.outputs.publish == 'true'
+        name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "v${{ steps.check.outputs.version }}" --target "$GITHUB_SHA" --generate-notes

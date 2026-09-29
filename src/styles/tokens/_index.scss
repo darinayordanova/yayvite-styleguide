@@ -1,6 +1,7 @@
 @forward 'colors' as color-*;
 @forward 'spacing' as space-*;
 @forward 'typography' as type-*;
+@forward 'breakpoints' as breakpoint-*;
 
 // Shared component tokens not covered by the scales above.
 $radius-sm: 5px;
