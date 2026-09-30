@@ -1,0 +1,27 @@
+// Builds on the .field styles from TextInput for the label, input box, message
+// and error/disabled states, and on the .select styles for the listbox and options.
+@use '../../styles/functions' as *;
+
+.autocomplete {
+  &__clear {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-neutral-500);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-neutral-900);
+    }
+  }
+
+  // Shown in place of the options while loading or when nothing matches.
+  &__status {
+    padding: 12px 14px;
+    color: var(--color-neutral-500);
+    font-size: rem(12px);
+    line-height: rem(18px);
+  }
+}

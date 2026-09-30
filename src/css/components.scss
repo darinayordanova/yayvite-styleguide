@@ -14,3 +14,5 @@
 @use '../components/Modal/modal';
 // After Select and Pill, whose styles it overrides.
 @use '../components/MultiSelect/multi-select';
+// After Select, whose listbox styles it overrides.
+@use '../components/Autocomplete/autocomplete';

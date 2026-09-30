@@ -14,6 +14,8 @@ export { Select } from './components/Select/Select';
 export type { SelectOption, SelectProps } from './components/Select/Select';
 export { MultiSelect } from './components/MultiSelect/MultiSelect';
 export type { MultiSelectProps } from './components/MultiSelect/MultiSelect';
+export { Autocomplete } from './components/Autocomplete/Autocomplete';
+export type { AutocompleteProps } from './components/Autocomplete/Autocomplete';
 export { FileUpload } from './components/FileUpload/FileUpload';
 export type { FileRejection, FileRejectionReason, FileUploadProps } from './components/FileUpload/FileUpload';
 export { Badge } from './components/Badge/Badge';
