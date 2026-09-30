@@ -1,0 +1,56 @@
+// Builds on the .select styles for the trigger, chevron, listbox and options.
+// Selected values are shown as pills, so the trigger grows with its content.
+@use '../../styles/tokens' as t;
+
+.multi-select {
+  &__trigger {
+    height: auto;
+    min-height: 43px;
+    padding-block: 5px;
+  }
+
+  &__values {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  &__option {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  &__check {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    box-sizing: border-box;
+    width: 19px;
+    height: 19px;
+    border: 1px solid var(--color-evergreen-300);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-white);
+    transition:
+      background-color t.$duration ease,
+      border-color t.$duration ease;
+  }
+
+  &__option[aria-selected='true'] &__check {
+    border-color: var(--color-evergreen-700);
+    background-color: var(--color-evergreen-700);
+  }
+
+  // Overrides the option icon color and size set by .select__option.
+  &__option &__check .icon {
+    color: var(--color-white);
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .multi-select__check {
+    transition: none;
+  }
+}

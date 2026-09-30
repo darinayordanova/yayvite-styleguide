@@ -11,6 +11,7 @@
   "globe": 61706,
   "heart": 61707,
   "home": 61708,
+  "image": 61722,
   "info": 61709,
   "lock": 61710,
   "mail": 61711,
@@ -22,6 +23,8 @@
   "settings": 61717,
   "sparkle": 61718,
   "trash": 61719,
+  "upload": 61723,
   "user": 61720,
-  "users": 61721
+  "users": 61721,
+  "video": 61724
 }

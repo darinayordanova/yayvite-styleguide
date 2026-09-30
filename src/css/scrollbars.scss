@@ -1,0 +1,47 @@
+// macOS-style scrollbars for every scrollable element: a slim rounded thumb
+// floating in a transparent track, darkening on hover. Override the custom
+// properties to re-theme.
+:root {
+  --scrollbar-size: 12px;
+  --scrollbar-thumb: color-mix(in srgb, var(--color-neutral-900) 35%, transparent);
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--color-neutral-900) 55%, transparent);
+}
+
+// Chrome 121+ drops the ::-webkit-scrollbar styles as soon as scrollbar-color
+// is set, so the standard properties go only to browsers without them (Firefox).
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+  background: transparent;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+// The transparent border insets the thumb from the track edges, like macOS.
+::-webkit-scrollbar-thumb {
+  min-height: 32px;
+  border: 3px solid transparent;
+  border-radius: var(--radius-full);
+  background-color: var(--scrollbar-thumb);
+  background-clip: padding-box;
+
+  &:hover,
+  &:active {
+    border-width: 2px;
+    background-color: var(--scrollbar-thumb-hover);
+  }
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}

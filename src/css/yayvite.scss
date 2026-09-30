@@ -1,5 +1,6 @@
-// Everything except fonts.css: tokens, utilities, icons and components.
+// Everything except fonts.css: tokens, utilities, icons, components and scrollbars.
 @use 'tokens';
 @use 'icons';
 @use 'components';
+@use 'scrollbars';
 @use 'utilities';

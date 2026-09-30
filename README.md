@@ -16,7 +16,7 @@ Import everything at once:
 
 ```ts
 import '@yayvite/styleguide/fonts.css'; // optional: self-hosted Playfair Display + DM Sans
-import '@yayvite/styleguide/styles.css'; // tokens, icons, components, utilities
+import '@yayvite/styleguide/styles.css'; // tokens, icons, components, scrollbars, utilities
 ```
 
 Or import only the layers you use:
@@ -25,7 +25,8 @@ Or import only the layers you use:
 | --- | --- | --- |
 | `tokens.css` | CSS custom properties (`*`). Needed by everything else. | ~0.6 KB |
 | `icons.css` | Icon font + `.icon-*` classes | ~0.5 KB + 5.7 KB font |
-| `components.css` | Styles for the React components (needs `icons.css`) | ~1.5 KB |
+| `components.css` | Styles for the React components (needs `icons.css`) | ~3 KB |
+| `scrollbars.css` | macOS-style scrollbars for the whole page (needs `tokens.css`) | ~0.3 KB |
 | `utilities.css` | Layout, grid, flex, color, spacing and typography classes | ~11 KB |
 | `fonts.css` | Variable woff2 fonts, latin subset | ~0.3 KB + ~75 KB fonts |
 
@@ -56,6 +57,19 @@ breakpoints (`sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px) and a mixin for t
 
 .hero {
   @include t.breakpoint-up(md) { padding-block: 64px; }
+}
+```
+
+### Scrollbars
+
+`scrollbars.css` (included in `styles.css`) gives every scrollable element a slim, rounded,
+macOS-style scrollbar on a transparent track. Re-theme it with:
+
+```css
+:root {
+  --scrollbar-size: 12px; /* track width; the thumb is inset 3px */
+  --scrollbar-thumb: rgb(0 0 0 / 0.35);
+  --scrollbar-thumb-hover: rgb(0 0 0 / 0.55);
 }
 ```
 
@@ -116,7 +130,10 @@ their codepoints (`src/icons/codepoints.json`).
 ## Components
 
 ```tsx
-import { Button, IconButton, TextInput, Checkbox, Radio, Toggle } from '@yayvite/styleguide';
+import {
+  Button, IconButton, TextInput, Checkbox, Radio, Toggle,
+  Select, MultiSelect, FileUpload, Badge, Pill, Stepper, Modal,
+} from '@yayvite/styleguide';
 
 <Button variant="primary" size="md" iconEnd="arrow">Continue</Button>
 <IconButton icon="heart" aria-label="Like" />
@@ -124,6 +141,14 @@ import { Button, IconButton, TextInput, Checkbox, Radio, Toggle } from '@yayvite
 <Checkbox label="Include RSVP card" defaultChecked />
 <Radio name="format" value="digital" label="Digital invitations" />
 <Toggle label="Guest notifications" description="Send updates by email" />
+<Select label="Meal" options={[{ value: 'fish', label: 'Sea bass' }]} onChange={setMeal} />
+<MultiSelect label="Diet" options={[{ value: 'vegan', label: 'Vegan' }]} value={diets} onChange={setDiets} />
+<FileUpload label="Photos" multiple maxSize={20 * 1024 * 1024} onFilesChange={setFiles} />
+<Badge tone="success" dot>Attending</Badge>
+<Pill onRemove={() => removeTag('Family')}>Family</Pill>
+<Stepper steps={[{ label: 'Details' }, { label: 'Design' }, { label: 'Send' }]} current={1} />
+<Modal open={open} onClose={() => setOpen(false)} title="Send invitations?" footer={<Button>Send</Button>} />
+<Modal open={open} dismissible={false} title="Before you continue" footer={�} /> {/* no � / Escape / backdrop close */}
 ```
 
 All components forward refs and accept their native element's props.
