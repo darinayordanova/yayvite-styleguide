@@ -1,0 +1,51 @@
+@use '../../styles/functions' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-sizing: border-box;
+  height: 22px;
+  padding-inline: 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: rem(11px);
+  font-weight: var(--font-weight-semibold);
+  line-height: rem(16.5px);
+  white-space: nowrap;
+  vertical-align: middle;
+
+  .icon {
+    font-size: 13px;
+  }
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+
+  &--neutral {
+    background-color: var(--color-neutral-100);
+    color: var(--color-neutral-700);
+    box-shadow: inset 0 0 0 1px var(--color-neutral-300);
+  }
+
+  &--evergreen {
+    background-color: var(--color-evergreen-100);
+    color: var(--color-evergreen-700);
+  }
+
+  &--rose {
+    background-color: var(--color-rose-100);
+    color: var(--color-rose-700);
+  }
+
+  @each $tone in (success, warning, error, info) {
+    &--#{$tone} {
+      background-color: var(--color-#{$tone}-light);
+      color: var(--color-#{$tone});
+    }
+  }
+}

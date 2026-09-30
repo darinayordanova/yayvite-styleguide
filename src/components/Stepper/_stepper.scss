@@ -1,0 +1,178 @@
+@use '../../styles/functions' as *;
+@use '../../styles/tokens' as t;
+
+$indicator: 28px;
+$gap: 8px; // space between an indicator and the connector line
+
+.stepper {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  list-style: none;
+
+  &__step {
+    position: relative;
+
+    // Connector to the next step.
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      border-radius: var(--radius-full);
+      background-color: var(--color-neutral-300);
+      transition: background-color t.$duration ease;
+    }
+
+    &--complete:not(:last-child)::after {
+      background-color: var(--color-evergreen-700);
+    }
+  }
+
+  &__content {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
+  }
+
+  button.stepper__content {
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+
+    &:hover .stepper__indicator {
+      background-color: var(--color-evergreen-900);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-evergreen-500);
+      outline-offset: 4px;
+    }
+  }
+
+  &__indicator {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    box-sizing: border-box;
+    width: $indicator;
+    height: $indicator;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: 50%;
+    background-color: var(--color-white);
+    color: var(--color-neutral-500);
+    font-size: rem(12px);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    transition:
+      background-color t.$duration ease,
+      border-color t.$duration ease,
+      box-shadow t.$duration ease;
+
+    .icon {
+      font-size: 16px;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__label {
+    color: var(--color-neutral-500);
+    font-size: rem(12px);
+    font-weight: var(--font-weight-medium);
+    line-height: rem(18px);
+  }
+
+  &__description {
+    color: var(--color-neutral-500);
+    font-size: rem(10px);
+    line-height: rem(15px);
+  }
+
+  // States
+  &__step--complete {
+    .stepper__indicator {
+      border-color: var(--color-evergreen-700);
+      background-color: var(--color-evergreen-700);
+      color: var(--color-white);
+    }
+
+    .stepper__label {
+      color: var(--color-neutral-900);
+    }
+  }
+
+  &__step--current {
+    .stepper__indicator {
+      border: 2px solid var(--color-evergreen-700);
+      box-shadow: 0 0 0 4px var(--color-evergreen-100);
+      color: var(--color-evergreen-700);
+    }
+
+    .stepper__label {
+      color: var(--color-neutral-900);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+
+  // Horizontal: indicators in a row, text centered below, lines between.
+  &--horizontal {
+    .stepper__step {
+      flex: 1;
+      min-width: 0;
+
+      &:not(:last-child)::after {
+        top: $indicator * 0.5 - 1px;
+        right: calc(-50% + #{$indicator * 0.5 + $gap});
+        left: calc(50% + #{$indicator * 0.5 + $gap});
+        height: 2px;
+      }
+    }
+
+    .stepper__content {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  // Vertical: indicator on the left, text beside it, lines going down.
+  &--vertical {
+    flex-direction: column;
+
+    .stepper__step {
+      padding-bottom: 24px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      &:not(:last-child)::after {
+        top: $indicator + $gap;
+        bottom: $gap;
+        left: $indicator * 0.5 - 1px;
+        width: 2px;
+      }
+    }
+
+    .stepper__text {
+      padding-top: 4px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper__indicator,
+  .stepper__step::after {
+    transition: none;
+  }
+}
