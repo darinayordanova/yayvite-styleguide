@@ -8,7 +8,7 @@ import { browserslistToTargets, transform } from 'lightningcss';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
-const entries = ['tokens', 'utilities', 'icons', 'components', 'fonts', 'yayvite'];
+const entries = ['tokens', 'utilities', 'icons', 'components', 'scrollbars', 'fonts', 'yayvite'];
 
 // Browsers with :has(), color-mix() and variable woff2 support.
 const targets = browserslistToTargets([

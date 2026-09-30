@@ -26,6 +26,7 @@
     "./tokens.css": "./dist/css/tokens.css",
     "./utilities.css": "./dist/css/utilities.css",
     "./components.css": "./dist/css/components.css",
+    "./scrollbars.css": "./dist/css/scrollbars.css",
     "./icons.css": "./dist/css/icons.css",
     "./fonts.css": "./dist/css/fonts.css",
     "./scss/*": "./dist/scss/*",

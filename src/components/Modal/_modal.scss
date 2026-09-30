@@ -1,0 +1,167 @@
+// Native <dialog> opened with showModal(): the browser handles the backdrop,
+// focus trapping and making the rest of the page inert.
+@use '../../styles/functions' as *;
+@use '../../styles/tokens' as t;
+
+$gutter: 16px;
+
+.modal {
+  box-sizing: border-box;
+  width: calc(100% - #{$gutter * 2});
+  max-height: calc(100dvh - #{$gutter * 2});
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-white);
+  box-shadow: 0 24px 48px rgba(34, 53, 45, 0.18);
+  color: var(--color-neutral-900);
+  font-family: var(--font-sans);
+
+  &--sm {
+    max-width: 400px;
+  }
+
+  &--md {
+    max-width: 520px;
+  }
+
+  &--lg {
+    max-width: 720px;
+  }
+
+  &::backdrop {
+    background-color: color-mix(in srgb, var(--color-neutral-900) 45%, transparent);
+    backdrop-filter: blur(2px);
+  }
+
+  &[open] {
+    animation: modal-in 200ms ease-out;
+
+    &::backdrop {
+      animation: modal-fade 200ms ease-out;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
+    outline: 0;
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 24px 0;
+
+    &--bare {
+      justify-content: flex-end;
+      padding: 12px 12px 0;
+    }
+  }
+
+  &__heading {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-h3-size);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--text-h3-line-height);
+  }
+
+  &__description {
+    margin: 0;
+    color: var(--color-neutral-700);
+    font-size: rem(13px);
+    line-height: rem(20px);
+  }
+
+  &__close {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    margin: -4px -8px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--color-neutral-700);
+    cursor: pointer;
+    transition:
+      background-color t.$duration ease,
+      color t.$duration ease;
+
+    &:hover {
+      background-color: var(--color-neutral-100);
+      color: var(--color-neutral-900);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-evergreen-500);
+      outline-offset: 2px;
+    }
+  }
+
+  &__body {
+    flex: 1;
+    min-height: 0;
+    padding: 16px 24px;
+    overflow-y: auto;
+    color: var(--color-neutral-700);
+    font-size: rem(13px);
+    line-height: rem(20px);
+  }
+
+  &__header + &__footer {
+    padding-top: 24px;
+  }
+
+  &__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 8px 24px 24px;
+  }
+}
+
+// Keep the page behind from scrolling while a modal is open.
+html:has(.modal[open]) {
+  overflow: hidden;
+}
+
+@keyframes modal-in {
+  from {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0;
+  }
+}
+
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal[open],
+  .modal[open]::backdrop {
+    animation: none;
+  }
+}

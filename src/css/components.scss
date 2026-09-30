@@ -2,7 +2,15 @@
 @use '../components/Button/button';
 @use '../components/IconButton/icon-button';
 @use '../components/TextInput/text-input';
+@use '../components/Select/select';
+@use '../components/FileUpload/file-upload';
 @use '../components/choice';
 @use '../components/Checkbox/checkbox';
 @use '../components/Radio/radio';
 @use '../components/Toggle/toggle';
+@use '../components/Badge/badge';
+@use '../components/Pill/pill';
+@use '../components/Stepper/stepper';
+@use '../components/Modal/modal';
+// After Select and Pill, whose styles it overrides.
+@use '../components/MultiSelect/multi-select';
