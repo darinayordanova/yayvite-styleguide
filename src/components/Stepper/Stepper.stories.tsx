@@ -4,17 +4,17 @@ import { Button } from '../Button/Button';
 import { Stepper } from './Stepper';
 
 const steps = [
-  { label: 'Details', description: 'Names and date' },
-  { label: 'Design', description: 'Pick a template' },
-  { label: 'Guests', description: 'Add your list' },
-  { label: 'Send', description: 'Review and send' },
+  { label: 'Details' },
+  { label: 'Design' },
+  { label: 'Guests' },
+  { label: 'Send' },
 ];
 
 const meta = {
   title: 'Components/Stepper',
   component: Stepper,
   args: { steps, current: 1 },
-  decorators: [(Story) => <div style={{ width: 560 }}>{Story()}</div>],
+  decorators: [(Story) => <div style={{ display: 'flex', justifyContent: 'center' }}>{Story()}</div>],
 } satisfies Meta<typeof Stepper>;
 
 export default meta;

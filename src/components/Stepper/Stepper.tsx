@@ -4,7 +4,6 @@ import { Icon } from '../Icon/Icon';
 
 export interface StepperStep {
   label: ReactNode;
-  description?: ReactNode;
 }
 
 export interface StepperProps extends HTMLAttributes<HTMLOListElement> {
@@ -32,7 +31,6 @@ export const Stepper = forwardRef<HTMLOListElement, StepperProps>(function Stepp
             </span>
             <span className="stepper__text">
               <span className="stepper__label">{step.label}</span>
-              {step.description && <span className="stepper__description">{step.description}</span>}
             </span>
           </>
         );
