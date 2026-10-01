@@ -16,3 +16,7 @@
 @use '../components/MultiSelect/multi-select';
 // After Select, whose listbox styles it overrides.
 @use '../components/Autocomplete/autocomplete';
+// After Select, whose listbox and option styles it overrides.
+@use '../components/TimePicker/time-picker';
+// After IconButton, whose hover styles it overrides.
+@use '../components/DatePicker/date-picker';

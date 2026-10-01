@@ -1,0 +1,51 @@
+// Builds on the .field styles from TextInput for the label, trigger box, message
+// and error/disabled states, and on the .select styles for the trigger, the
+// popover box and the options.
+@use '../../styles/tokens' as t;
+
+.time-picker {
+  // Overrides the single scrolling list of .select__listbox: each column scrolls instead.
+  &__popover {
+    display: flex;
+    right: auto;
+    gap: 4px;
+    max-height: none;
+    overflow: visible;
+  }
+
+  &__column {
+    // Positioned so an option's offset is measured from its column.
+    position: relative;
+    width: 48px;
+    max-height: 204px;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    border-radius: var(--radius-sm);
+    list-style: none;
+    outline: 0;
+    // The columns scroll by wheel, touch and keyboard, without a visible scrollbar.
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+  }
+
+  &__option {
+    justify-content: center;
+    transition: background-color t.$duration ease;
+
+    &:hover,
+    &[aria-selected='true'] {
+      background-color: var(--color-evergreen-100);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time-picker__option {
+    transition: none;
+  }
+}

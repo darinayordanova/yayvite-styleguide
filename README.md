@@ -132,7 +132,7 @@ their codepoints (`src/icons/codepoints.json`).
 ```tsx
 import {
   Button, IconButton, TextInput, Checkbox, Radio, Toggle,
-  Select, MultiSelect, FileUpload, Badge, Pill, Stepper, Modal,
+  Select, MultiSelect, DatePicker, TimePicker, FileUpload, Badge, Pill, Stepper, Modal,
 } from '@yayvite/styleguide';
 
 <Button variant="primary" size="md" iconEnd="arrow">Continue</Button>
@@ -143,6 +143,8 @@ import {
 <Toggle label="Guest notifications" description="Send updates by email" />
 <Select label="Meal" options={[{ value: 'fish', label: 'Sea bass' }]} onChange={setMeal} />
 <MultiSelect label="Diet" options={[{ value: 'vegan', label: 'Vegan' }]} value={diets} onChange={setDiets} />
+<DatePicker label="Date" value={date} onChange={setDate} min="2027-01-01" /> {/* "YYYY-MM-DD" */}
+<TimePicker label="Time" value={time} onChange={setTime} step={15} /> {/* "HH:mm" */}
 <FileUpload label="Photos" multiple maxSize={20 * 1024 * 1024} onFilesChange={setFiles} />
 <Badge tone="success" dot>Attending</Badge>
 <Pill onRemove={() => removeTag('Family')}>Family</Pill>
