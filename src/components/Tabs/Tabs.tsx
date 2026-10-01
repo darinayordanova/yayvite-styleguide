@@ -107,6 +107,8 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(function Tabs(
         ref={listRef}
         role="tablist"
         className="tabs__list"
+        // Scrolls sideways on narrow screens without showing a scrollbar.
+        data-scrollbar="none"
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         onKeyDown={onKeyDown}

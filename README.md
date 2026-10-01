@@ -63,7 +63,19 @@ breakpoints (`sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px) and a mixin for t
 ### Scrollbars
 
 `scrollbars.css` (included in `styles.css`) gives every scrollable element a slim, rounded,
-macOS-style scrollbar on a transparent track. Re-theme it with:
+macOS-style scrollbar on a transparent track.
+
+For the full macOS behavior, where scrollbars take no space, float over the content and only
+appear while scrolling, also call `enableOverlayScrollbars()` once when the app starts:
+
+```ts
+import { enableOverlayScrollbars } from '@yayvite/styleguide';
+
+enableOverlayScrollbars(); // returns a function that turns it off again
+// In React: useEffect(() => enableOverlayScrollbars(), []);
+```
+
+Add `data-scrollbar="none"` to an element that should never show a scrollbar. Re-theme with:
 
 ```css
 :root {

@@ -42,6 +42,8 @@ export { Tabs } from './components/Tabs/Tabs';
 export type { TabItem, TabsProps } from './components/Tabs/Tabs';
 export { Modal } from './components/Modal/Modal';
 export type { ModalProps, ModalSize } from './components/Modal/Modal';
+export { enableOverlayScrollbars } from './scrollbars/overlayScrollbars';
+export type { OverlayScrollbarOptions } from './scrollbars/overlayScrollbars';
 export { Icon } from './components/Icon/Icon';
 export type { IconProps, IconSize } from './components/Icon/Icon';
 export { iconNames } from './icons/generated/icon-names';

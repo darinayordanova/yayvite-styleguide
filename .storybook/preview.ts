@@ -1,6 +1,9 @@
 import type { Preview } from '@storybook/react-vite';
 import '../src/css/fonts.scss';
 import '../src/css/yayvite.scss';
+import { enableOverlayScrollbars } from '../src/scrollbars/overlayScrollbars';
+
+enableOverlayScrollbars();
 
 const preview: Preview = {
   parameters: {

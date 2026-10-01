@@ -1,6 +1,8 @@
-// macOS-style scrollbars for every scrollable element: a slim rounded thumb
-// floating in a transparent track, darkening on hover. Override the custom
-// properties to re-theme.
+// macOS-style scrollbars, re-themed through the custom properties below.
+//
+// With enableOverlayScrollbars() (JS) they behave like macOS: no gutter, a thumb
+// floats over the content only while scrolling, then fades out. Without it, every
+// scrollable element gets a slim rounded native scrollbar on a transparent track.
 :root {
   --scrollbar-size: 12px;
   --scrollbar-thumb: color-mix(in srgb, var(--color-neutral-900) 35%, transparent);
@@ -13,6 +15,11 @@
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  .yv-overlay-scrollbars,
+  .yv-overlay-scrollbars * {
+    scrollbar-width: none;
   }
 }
 
@@ -44,4 +51,96 @@
 
 ::-webkit-scrollbar-button {
   display: none;
+}
+
+// Overlay mode, switched on by enableOverlayScrollbars(): native scrollbars take
+// no space and the thumbs below are drawn over the content instead.
+.yv-overlay-scrollbars,
+.yv-overlay-scrollbars * {
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+.yv-scrollbars {
+  position: fixed;
+  z-index: 2147483000;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+// The element is the hit area (--scrollbar-size wide); ::before is the visible thumb.
+.yv-scrollbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+  touch-action: none;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &--visible {
+    opacity: 1;
+    pointer-events: auto;
+    transition-duration: 120ms;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    border-radius: var(--radius-full);
+    background-color: var(--scrollbar-thumb);
+    transition:
+      background-color 150ms ease,
+      width 150ms ease,
+      height 150ms ease;
+  }
+
+  &--y::before {
+    top: 0;
+    right: 3px;
+    bottom: 0;
+    width: 6px;
+  }
+
+  &--x::before {
+    right: 0;
+    bottom: 3px;
+    left: 0;
+    height: 6px;
+  }
+
+  // Grows a little under the pointer, like macOS.
+  &:hover::before,
+  &:active::before {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+
+  &--y:hover::before,
+  &--y:active::before {
+    width: 8px;
+  }
+
+  &--x:hover::before,
+  &--x:active::before {
+    height: 8px;
+  }
+}
+
+[dir='rtl'] .yv-scrollbar--y::before {
+  right: auto;
+  left: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yv-scrollbar,
+  .yv-scrollbar::before {
+    transition: none;
+  }
 }
