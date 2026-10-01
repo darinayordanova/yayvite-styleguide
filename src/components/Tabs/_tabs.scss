@@ -1,0 +1,112 @@
+@use '../../styles/functions' as *;
+@use '../../styles/tokens' as t;
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans);
+
+  &__list {
+    position: relative;
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    box-shadow: inset 0 -1px 0 var(--color-neutral-300);
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &--full &__tab {
+    flex: 1;
+  }
+
+  &__tab {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 10px 2px 12px;
+    border: 0;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    background: none;
+    color: var(--color-neutral-700);
+    font: inherit;
+    font-size: rem(13px);
+    font-weight: var(--font-weight-semibold);
+    line-height: rem(20px);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color t.$duration ease;
+
+    .icon {
+      font-size: 17px;
+    }
+
+    &:hover:not(:disabled) {
+      color: var(--color-neutral-900);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-evergreen-500);
+      outline-offset: -2px;
+    }
+
+    &:disabled {
+      opacity: t.$opacity-disabled;
+      cursor: not-allowed;
+    }
+
+    // Weight stays the same so selecting a tab never shifts its neighbors.
+    &[aria-selected='true'] {
+      color: var(--color-evergreen-700);
+    }
+  }
+
+  &__indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: var(--indicator-width);
+    height: 2px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-evergreen-700);
+    transform: translateX(var(--indicator-x));
+    pointer-events: none;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &--animated {
+      transition:
+        transform t.$duration cubic-bezier(0.65, 0, 0.35, 1),
+        width t.$duration cubic-bezier(0.65, 0, 0.35, 1);
+    }
+  }
+
+  &__panel {
+    padding-top: 20px;
+    color: var(--color-neutral-700);
+    font-size: rem(13px);
+    line-height: rem(20px);
+    outline: 0;
+
+    &:focus-visible {
+      border-radius: var(--radius-sm);
+      outline: 2px solid var(--color-evergreen-500);
+      outline-offset: 2px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs__tab,
+  .tabs__indicator--animated {
+    transition: none;
+  }
+}

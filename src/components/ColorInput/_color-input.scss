@@ -1,0 +1,186 @@
+// Builds on the .field styles from TextInput for the label, box, message and
+// error/disabled states, and on .select__anchor for positioning the picker.
+@use '../../styles/functions' as *;
+@use '../../styles/tokens' as t;
+
+$popover-width: 240px;
+$thumb: 16px;
+
+.color-input {
+  &__swatch {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin: 0 0 0 -4px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background-color: var(--swatch);
+    // Inner ring keeps light colors visible against the white field.
+    box-shadow: inset 0 0 0 1px rgba(41, 48, 45, 0.15);
+    cursor: pointer;
+    transition:
+      transform t.$duration ease,
+      background-color 120ms linear;
+
+    &:hover:not(:disabled) {
+      transform: scale(1.08);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-evergreen-500);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    // A diagonal slash reads as "no color", where plain white would look like a color.
+    &--empty {
+      background-color: var(--color-white);
+      background-image: linear-gradient(
+        to top right,
+        transparent calc(50% - 0.75px),
+        var(--color-error) calc(50% - 0.75px),
+        var(--color-error) calc(50% + 0.75px),
+        transparent calc(50% + 0.75px)
+      );
+    }
+  }
+
+  &__text {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.3px;
+  }
+
+  &__popover {
+    position: absolute;
+    z-index: 50;
+    top: calc(100% + 6px);
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+    width: $popover-width;
+    padding: 12px;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: var(--radius-md);
+    background-color: var(--color-white);
+    box-shadow: t.$shadow-popover;
+    outline: 0;
+  }
+
+  // Saturation left → right, brightness bottom → top, over the current hue.
+  &__area {
+    position: relative;
+    height: 148px;
+    border-radius: var(--radius-sm);
+    background:
+      linear-gradient(to top, #000, transparent),
+      linear-gradient(to right, #fff, transparent),
+      var(--hue);
+    cursor: crosshair;
+    touch-action: none;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__hue {
+    position: relative;
+    flex: 1;
+    height: 12px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(
+      to right,
+      #f00 0%,
+      #ff0 16.67%,
+      #0f0 33.33%,
+      #0ff 50%,
+      #00f 66.67%,
+      #f0f 83.33%,
+      #f00 100%
+    );
+    cursor: pointer;
+    touch-action: none;
+
+    // Keeps the thumb's center over the rounded ends of the track.
+    .color-input__thumb {
+      top: 50%;
+      left: calc(6px + (100% - 12px) * var(--x));
+    }
+  }
+
+  &__thumb {
+    position: absolute;
+    box-sizing: border-box;
+    width: $thumb;
+    height: $thumb;
+    border: 3px solid var(--color-white);
+    border-radius: 50%;
+    background-color: var(--swatch);
+    box-shadow:
+      0 0 0 1px rgba(41, 48, 45, 0.2),
+      t.$shadow-thumb;
+    transform: translate(-50%, -50%);
+    outline: 0;
+    pointer-events: none;
+    transition: width 120ms ease, height 120ms ease;
+
+    &:focus-visible {
+      width: $thumb + 4px;
+      height: $thumb + 4px;
+      box-shadow:
+        0 0 0 2px var(--color-evergreen-500),
+        t.$shadow-thumb;
+    }
+  }
+
+  &__presets {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-neutral-100);
+  }
+
+  &__preset {
+    aspect-ratio: 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background-color: var(--swatch);
+    box-shadow: inset 0 0 0 1px rgba(41, 48, 45, 0.12);
+    cursor: pointer;
+    transition: transform t.$duration ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-evergreen-500);
+      outline-offset: 2px;
+    }
+
+    &[aria-pressed='true'] {
+      box-shadow:
+        inset 0 0 0 2px var(--color-white),
+        0 0 0 2px var(--color-evergreen-700);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-input__swatch,
+  .color-input__thumb,
+  .color-input__preset {
+    transition: none;
+  }
+}

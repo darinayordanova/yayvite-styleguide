@@ -47,6 +47,39 @@ export const WithClose: Story = {
   },
 };
 
+/** `eyebrow` adds a small uppercase line above the title. */
+export const WithEyebrow: Story = {
+  args: {
+    eyebrow: 'Step 2 of 3',
+    title: 'Choose your colors',
+    description: 'Pick a palette for your invitation. You can change it at any time.',
+  },
+  render: function Render(args) {
+    const [open, setOpen] = useState(false);
+    const close = () => setOpen(false);
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Open modal</Button>
+        <Modal
+          {...args}
+          open={open}
+          onClose={close}
+          footer={
+            <>
+              <Button variant="secondary" onClick={close}>
+                Back
+              </Button>
+              <Button iconEnd="arrow" onClick={close}>
+                Continue
+              </Button>
+            </>
+          }
+        />
+      </>
+    );
+  },
+};
+
 /** No × button; Escape and backdrop clicks are ignored, so the user must choose an action. */
 export const WithoutClose: Story = {
   args: {

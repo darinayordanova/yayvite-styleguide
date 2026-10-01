@@ -75,6 +75,21 @@ $gutter: 16px;
     }
   }
 
+  &__eyebrow {
+    margin: 0;
+    color: var(--color-rose-700);
+    font-size: var(--text-label-size);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 1.3px;
+    line-height: var(--text-label-line-height);
+    text-transform: uppercase;
+  }
+
+  // Sits closer to the title than the heading gap.
+  &__eyebrow + &__title {
+    margin-top: -2px;
+  }
+
   &__title {
     margin: 0;
     font-family: var(--font-serif);

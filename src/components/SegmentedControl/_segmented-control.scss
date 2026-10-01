@@ -1,0 +1,163 @@
+@use '../../styles/functions' as *;
+@use '../../styles/tokens' as t;
+
+$inset: 3px;
+
+.segmented {
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  padding: $inset;
+  border-radius: var(--radius-md);
+  background-color: var(--color-neutral-100);
+  font-family: var(--font-sans);
+  isolation: isolate;
+
+  &--full {
+    display: flex;
+
+    .segmented__option {
+      flex: 1;
+    }
+  }
+
+  &__thumb {
+    position: absolute;
+    z-index: -1;
+    top: $inset;
+    bottom: $inset;
+    left: 0;
+    width: var(--indicator-width);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-white);
+    box-shadow: t.$shadow-thumb;
+    transform: translateX(var(--indicator-x));
+
+    &[hidden] {
+      display: none;
+    }
+
+    &--animated {
+      transition:
+        transform t.$duration cubic-bezier(0.65, 0, 0.35, 1),
+        width t.$duration cubic-bezier(0.65, 0, 0.35, 1);
+    }
+  }
+
+  &__option {
+    position: relative;
+    display: flex;
+  }
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    opacity: 0;
+  }
+
+  &__label {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border-radius: var(--radius-sm);
+    color: var(--color-neutral-700);
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color t.$duration ease;
+  }
+
+  &__option:hover &__label {
+    color: var(--color-neutral-900);
+  }
+
+  // Weight stays the same so selecting an option never shifts its neighbors.
+  &__input:checked + &__label {
+    color: var(--color-evergreen-700);
+  }
+
+  &__input:focus-visible + &__label {
+    outline: 2px solid var(--color-evergreen-500);
+    outline-offset: 0;
+  }
+
+  &__input:disabled + &__label {
+    opacity: t.$opacity-disabled;
+    cursor: not-allowed;
+  }
+
+  &--disabled {
+    .segmented__thumb {
+      opacity: 0.6;
+    }
+
+    .segmented__input:disabled + .segmented__label {
+      opacity: 1;
+      color: var(--color-neutral-500);
+    }
+  }
+
+  // Sizes: total heights match Button (48/40/32px).
+  &--lg &__label {
+    height: 48px - $inset * 2;
+    padding-inline: 18px;
+    font-size: rem(13px);
+    line-height: rem(19.5px);
+
+    .icon {
+      font-size: 18px;
+    }
+  }
+
+  &--md &__label {
+    height: 40px - $inset * 2;
+    padding-inline: 14px;
+    font-size: rem(12px);
+    line-height: rem(18px);
+
+    .icon {
+      font-size: 16px;
+    }
+  }
+
+  &--sm &__label {
+    height: 32px - $inset * 2;
+    padding-inline: 10px;
+    font-size: rem(11px);
+    line-height: rem(16.5px);
+
+    .icon {
+      font-size: 14px;
+    }
+  }
+
+  // Icon-only options are square.
+  &--lg &__option--icon &__label {
+    width: 48px - $inset * 2;
+    padding: 0;
+  }
+
+  &--md &__option--icon &__label {
+    width: 40px - $inset * 2;
+    padding: 0;
+  }
+
+  &--sm &__option--icon &__label {
+    width: 32px - $inset * 2;
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .segmented__label,
+  .segmented__thumb--animated {
+    transition: none;
+  }
+}

@@ -1,0 +1,57 @@
+// Builds on the .field styles from TextInput for the label, box, message and
+// error/disabled states.
+@use '../../styles/functions' as *;
+@use '../../styles/tokens' as t;
+
+.textarea {
+  &__control {
+    align-items: stretch;
+    height: auto;
+    padding: 0;
+  }
+
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 43px;
+    padding: 12px 13px;
+    border-radius: inherit;
+    font-size: rem(12px);
+    line-height: rem(18px);
+    resize: vertical;
+
+    &--auto {
+      overflow-y: hidden;
+      resize: none;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    .field__message {
+      flex: 1;
+    }
+  }
+
+  &__count {
+    margin-inline-start: auto;
+    color: var(--color-neutral-500);
+    font-size: rem(10px);
+    font-variant-numeric: tabular-nums;
+    line-height: rem(15px);
+    white-space: nowrap;
+    transition: color t.$duration ease;
+
+    &--limit {
+      color: var(--color-warning);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+}
+
+.field--error .textarea__count--limit {
+  color: var(--color-error);
+}

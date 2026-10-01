@@ -3,7 +3,7 @@ import type { IconName } from '../../icons/generated/icon-names';
 import { cx } from '../../utils/cx';
 import { Icon } from '../Icon/Icon';
 
-export interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'> {
   /** Visible label. If omitted, pass `aria-label` or `aria-labelledby`. */
   label?: ReactNode;
   /** Hint shown below the field. Replaced by `error` when that is a string. */
@@ -14,6 +14,8 @@ export interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   success?: boolean;
   iconStart?: IconName;
   iconEnd?: IconName;
+  /** Fixed text before the value, such as `https://` or `�`. It is not part of the value. */
+  prefix?: ReactNode;
   /** Class for the outer wrapper; `className` goes on the <input>. */
   wrapperClassName?: string;
 }
@@ -26,6 +28,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
     success,
     iconStart,
     iconEnd,
+    prefix,
     wrapperClassName,
     className,
     id,
@@ -38,6 +41,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
   const autoId = useId();
   const inputId = id ?? autoId;
   const messageId = `${inputId}-message`;
+  const prefixId = `${inputId}-prefix`;
   const [revealed, setRevealed] = useState(false);
 
   const isPassword = type === 'password';
@@ -60,6 +64,19 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
         </label>
       )}
       <div className="field__control">
+        {prefix != null && (
+          // Clicking the prefix focuses the input, as if it were part of the field.
+          <span
+            id={prefixId}
+            className="field__prefix"
+            onMouseDown={(event) => {
+              event.preventDefault();
+              document.getElementById(inputId)?.focus();
+            }}
+          >
+            {prefix}
+          </span>
+        )}
         {iconStart && <Icon name={iconStart} />}
         <input
           ref={ref}
@@ -68,7 +85,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
           disabled={disabled}
           className={cx('field__input', className)}
           aria-invalid={hasError || undefined}
-          aria-describedby={message ? messageId : undefined}
+          aria-describedby={cx(prefix != null && prefixId, Boolean(message) && messageId) || undefined}
           {...rest}
         />
         {isPassword ? (
@@ -80,7 +97,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
             aria-pressed={revealed}
             disabled={disabled}
           >
-            <Icon name="eye" />
+            <Icon name={revealed ? 'eye-off' : 'eye'} />
           </button>
         ) : (
           endIcon && <Icon name={endIcon} />

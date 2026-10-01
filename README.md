@@ -131,16 +131,20 @@ their codepoints (`src/icons/codepoints.json`).
 
 ```tsx
 import {
-  Button, IconButton, TextInput, Checkbox, Radio, Toggle,
-  Select, MultiSelect, DatePicker, TimePicker, FileUpload, Badge, Pill, Stepper, Modal,
+  Button, IconButton, TextInput, TextArea, ColorInput, Checkbox, Radio, Toggle, SegmentedControl,
+  Select, MultiSelect, DatePicker, TimePicker, FileUpload, Badge, Pill, Stepper, Tabs, Modal,
 } from '@yayvite/styleguide';
 
 <Button variant="primary" size="md" iconEnd="arrow">Continue</Button>
 <IconButton icon="heart" aria-label="Like" />
 <TextInput label="Email" iconStart="mail" error="Enter a valid email address" />
+<TextInput label="Website" prefix="yayvite.com/" placeholder="mia-and-tom" />
+<TextArea label="Message" showCount maxLength={300} autoResize maxRows={8} />
+<ColorInput label="Accent" value={color} onChange={setColor} /> {/* "#rrggbb"; accepts any CSS color typed in */}
 <Checkbox label="Include RSVP card" defaultChecked />
 <Radio name="format" value="digital" label="Digital invitations" />
 <Toggle label="Guest notifications" description="Send updates by email" />
+<SegmentedControl aria-label="Format" size="md" options={[{ value: 'digital', label: 'Digital' }, { value: 'print', label: 'Print' }]} />
 <Select label="Meal" options={[{ value: 'fish', label: 'Sea bass' }]} onChange={setMeal} />
 <MultiSelect label="Diet" options={[{ value: 'vegan', label: 'Vegan' }]} value={diets} onChange={setDiets} />
 <DatePicker label="Date" value={date} onChange={setDate} min="2027-01-01" /> {/* "YYYY-MM-DD" */}
@@ -149,7 +153,8 @@ import {
 <Badge tone="success" dot>Attending</Badge>
 <Pill onRemove={() => removeTag('Family')}>Family</Pill>
 <Stepper steps={[{ label: 'Details' }, { label: 'Design' }, { label: 'Send' }]} current={1} />
-<Modal open={open} onClose={() => setOpen(false)} title="Send invitations?" footer={<Button>Send</Button>} />
+<Tabs aria-label="Settings" items={[{ value: 'details', label: 'Details', content: <Details /> }, { value: 'design', label: 'Design' }]} />
+<Modal open={open} onClose={() => setOpen(false)} eyebrow="Step 3 of 3" title="Send invitations?" footer={<Button>Send</Button>} />
 <Modal open={open} dismissible={false} title="Before you continue" footer={�} /> {/* no � / Escape / backdrop close */}
 ```
 

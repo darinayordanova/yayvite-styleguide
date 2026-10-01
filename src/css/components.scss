@@ -2,6 +2,7 @@
 @use '../components/Button/button';
 @use '../components/IconButton/icon-button';
 @use '../components/TextInput/text-input';
+@use '../components/TextArea/textarea';
 @use '../components/Select/select';
 @use '../components/FileUpload/file-upload';
 @use '../components/choice';
@@ -11,6 +12,8 @@
 @use '../components/Badge/badge';
 @use '../components/Pill/pill';
 @use '../components/Stepper/stepper';
+@use '../components/Tabs/tabs';
+@use '../components/SegmentedControl/segmented-control';
 @use '../components/Modal/modal';
 // After Select and Pill, whose styles it overrides.
 @use '../components/MultiSelect/multi-select';
@@ -20,3 +23,5 @@
 @use '../components/TimePicker/time-picker';
 // After IconButton, whose hover styles it overrides.
 @use '../components/DatePicker/date-picker';
+// After TextInput, Select and IconButton, whose styles it builds on.
+@use '../components/ColorInput/color-input';

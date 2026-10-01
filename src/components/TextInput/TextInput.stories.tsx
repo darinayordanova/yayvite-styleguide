@@ -26,3 +26,15 @@ export const States: Story = {
     </div>
   ),
 };
+
+/** `prefix` shows fixed text before the value. It is not part of the value. */
+export const WithPrefix: Story = {
+  decorators: [(Story) => <div style={{ width: 780 }}>{Story()}</div>],
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '25px 20px' }}>
+      <TextInput label="Website" prefix="yayvite.com/" placeholder="mia-and-tom" />
+      <TextInput label="Gift amount" prefix="€" inputMode="decimal" defaultValue="150" />
+      <TextInput label="Link" prefix="https://" iconEnd="link" defaultValue="mia@" error="Enter a valid link" />
+    </div>
+  ),
+};

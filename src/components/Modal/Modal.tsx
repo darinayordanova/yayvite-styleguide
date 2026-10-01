@@ -21,6 +21,8 @@ export interface ModalProps extends Omit<DialogHTMLAttributes<HTMLDialogElement>
    */
   dismissible?: boolean;
   title?: ReactNode;
+  /** Small uppercase line above the title, e.g. a step or category: "Step 2 of 3". */
+  eyebrow?: ReactNode;
   /** Text below the title, also read out as the dialog's description. */
   description?: ReactNode;
   /** Actions at the bottom, usually buttons. */
@@ -37,6 +39,7 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
     onClose,
     dismissible = true,
     title,
+    eyebrow,
     description,
     footer,
     size = 'md',
@@ -103,9 +106,12 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(function Modal(
       {...rest}
     >
       <div ref={panelRef} className="modal__panel" tabIndex={-1}>
-        {(title || description || dismissible) && (
-          <header className={cx('modal__header', !title && !description && 'modal__header--bare')}>
+        {(title || eyebrow || description || dismissible) && (
+          <header
+            className={cx('modal__header', !title && !eyebrow && !description && 'modal__header--bare')}
+          >
             <div className="modal__heading">
+              {eyebrow && <p className="modal__eyebrow">{eyebrow}</p>}
               {title && (
                 <h2 id={titleId} className="modal__title">
                   {title}
